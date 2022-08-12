@@ -1,14 +1,20 @@
 import { StyleSheet } from "react-native";
 import { Layout, Text, Button } from "@ui-kitten/components";
+import { useAssets } from "expo-asset";
 
 import colors from "../utils/colors";
 
 import MenuCard from "../components/MenuCard";
-import Bg1 from "../../assets/bg/medhat-ayad.jpg";
-import Bg2 from "../../assets/bg/dominika-roseclay.jpg";
-import Bg3 from "../../assets/bg/tingey-injury-law-firm.jpg";
 
 const Profile = () => {
+  const [assets] = useAssets([
+    require("../../assets/bg/medhat-ayad.jpg"),
+    require("../../assets/bg/dominika-roseclay.jpg"),
+    require("../../assets/bg/tingey-injury-law-firm.jpg"),
+  ]);
+
+  const images = assets ?? [];
+
   return (
     <Layout style={styles.container}>
       <Layout style={styles.header}>
@@ -26,9 +32,9 @@ const Profile = () => {
       </Layout>
 
       <Layout style={styles.body}>
-        <MenuCard heading="A Willful Image" image={Bg1} />
-        <MenuCard heading="A Wonderful Song" reverse={true} image={Bg2} />
-        <MenuCard heading="A Wise Quote" image={Bg3} />
+        <MenuCard heading="A Willful Image" image={images[0]} />
+        <MenuCard heading="A Wonderful Song" reverse={true} image={images[1]} />
+        <MenuCard heading="A Wise Quote" image={images[2]} />
       </Layout>
     </Layout>
   );
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: colors.black1,
+    backgroundColor: colors.black,
     paddingHorizontal: 25,
   },
   headerText: {

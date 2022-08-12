@@ -10,29 +10,15 @@ import colors from "./src/utils/colors";
 import Profile from "./src/screens/Profile";
 import Photos from "./src/screens/Photos";
 import Mood from "./src/screens/Mood";
-import Settings from "./src/screens/Settings";
+import Quotes from "./src/screens/Quotes";
 
 const styles = StyleSheet.create({
-  headerRightIcon: {
-    color: colors.white,
-    marginRight: 30,
-  },
-  headerLeftIcon: {
-    color: colors.white,
-    marginLeft: 30,
-  },
-  profileHeader: {
-    backgroundColor: colors.black1,
-  },
-  profileHeaderTitle: {
-    color: colors.white,
-  },
-  tabBar: {
-    backgroundColor: colors.black1,
-  },
-  tabBarLabel: {
-    color: colors.white,
-  },
+  headerRightIcon: { color: colors.white, marginRight: 30 },
+  headerLeftIcon: { color: colors.white, marginLeft: 30 },
+  profileHeader: { backgroundColor: colors.black },
+  profileHeaderTitle: { color: colors.white },
+  tabBar: { backgroundColor: colors.black, shadowOpacity: 0 },
+  tabBarLabel: { color: colors.white },
 });
 
 const SCREEN_CONFIGURATIONS = {
@@ -41,37 +27,11 @@ const SCREEN_CONFIGURATIONS = {
     options: {
       headerStyle: styles.profileHeader,
       headerTitleStyle: styles.profileHeaderTitle,
-      headerLeft: (props) => {
-        return (
-          <Ionicons
-            {...props}
-            style={{ color: colors.white, marginHorizontal: 25 }}
-            name="ios-chevron-back-outline"
-            size={24}
-          />
-        );
-      },
-      headerRight: (props) => {
-        return (
-          <Ionicons
-            {...props}
-            style={{ color: colors.white, marginHorizontal: 25 }}
-            name="ios-filter-outline"
-            size={24}
-          />
-        );
-      },
     },
   },
-  Mood: {
-    stackIcon: "ios-happy",
-  },
-  Photos: {
-    stackIcon: "ios-camera",
-  },
-  Settings: {
-    stackIcon: "ios-settings",
-  },
+  Mood: { stackIcon: "ios-happy" },
+  Photos: { stackIcon: "ios-camera" },
+  Quotes: { stackIcon: "ios-book" },
 };
 
 const Tab = createBottomTabNavigator();
@@ -86,6 +46,8 @@ const wrapComponent = (Component) => {
 
 const getScreenOptions = ({ route }) => {
   const { stackIcon, options = {} } = SCREEN_CONFIGURATIONS[route.name];
+  const headerIconColor =
+    route.name === "Profile" ? colors.white : colors.black;
 
   return {
     ...options,
@@ -101,10 +63,30 @@ const getScreenOptions = ({ route }) => {
         />
       );
     },
+    headerLeft: (props) => {
+      return (
+        <Ionicons
+          {...props}
+          style={{ color: headerIconColor, marginHorizontal: 25 }}
+          name="ios-chevron-back-outline"
+          size={24}
+        />
+      );
+    },
+    headerRight: (props) => {
+      return (
+        <Ionicons
+          {...props}
+          style={{ color: headerIconColor, marginHorizontal: 25 }}
+          name="ios-happy-outline"
+          size={24}
+        />
+      );
+    },
   };
 };
 
-const SCREEN_MAPPING = { Profile, Photos, Mood, Settings };
+const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
 
 const App = () => {
   return (
