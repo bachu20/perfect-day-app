@@ -1,5 +1,5 @@
-import { StyleSheet, Image } from "react-native";
-import { Layout, Text } from "@ui-kitten/components";
+import { StyleSheet } from "react-native";
+import { Layout, Text, Button } from "@ui-kitten/components";
 
 import colors from "../utils/colors";
 
@@ -19,6 +19,10 @@ const Profile = () => {
         <Text style={styles.headerQuote} category="s1" appearance="alternative">
           "Whatever the mind of man can conceive and believe, it can achieve."
         </Text>
+
+        <Button style={styles.moodBtn} appearance="ghost" activeOpacity={0.75}>
+          What's my mood?
+        </Button>
       </Layout>
 
       <Layout style={styles.body}>
@@ -48,6 +52,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     color: colors.white,
+  },
+  moodBtn: {
+    backgroundColor: colors.white,
+    maxWidth: 175,
+    alignSelf: "center",
+    marginTop: 25,
   },
   body: {
     flex: 2,

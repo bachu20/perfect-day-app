@@ -7,10 +7,8 @@ const MenuCard = ({ heading, image, reverse }) => {
 
   return (
     <Layout style={{ ...styles.card, flexDirection }}>
-      <TouchableOpacity style={styles.headingWrapper}>
-        <Text style={styles.heading} category="h6">
-          {heading}
-        </Text>
+      <TouchableOpacity style={styles.heading}>
+        <Text category="h6">{heading}</Text>
       </TouchableOpacity>
 
       {/* <Ionicons style={styles.icon} name="ios-image" size={50} /> */}
@@ -24,13 +22,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  headingWrapper: {
-    flex: 1,
-    alignSelf: "center",
-    textAlign: "center",
-  },
   heading: {
-    textAlign: "center",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   icon: {
     alignSelf: "flex-end",

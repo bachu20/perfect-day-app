@@ -9,13 +9,10 @@ import colors from "./src/utils/colors";
 
 import Profile from "./src/screens/Profile";
 import Photos from "./src/screens/Photos";
-import Music from "./src/screens/Music";
+import Mood from "./src/screens/Mood";
 import Settings from "./src/screens/Settings";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   headerRightIcon: {
     color: colors.white,
     marginRight: 30,
@@ -26,7 +23,6 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     backgroundColor: colors.black1,
-    shadowOpacity: 0,
   },
   profileHeaderTitle: {
     color: colors.white,
@@ -49,8 +45,8 @@ const SCREEN_CONFIGURATIONS = {
         return (
           <Ionicons
             {...props}
-            style={styles.headerLeftIcon}
-            name="ios-refresh-outline"
+            style={{ color: colors.white, marginHorizontal: 25 }}
+            name="ios-chevron-back-outline"
             size={24}
           />
         );
@@ -59,16 +55,16 @@ const SCREEN_CONFIGURATIONS = {
         return (
           <Ionicons
             {...props}
-            style={styles.headerRightIcon}
-            name="ios-heart-outline"
+            style={{ color: colors.white, marginHorizontal: 25 }}
+            name="ios-filter-outline"
             size={24}
           />
         );
       },
     },
   },
-  Music: {
-    stackIcon: "ios-musical-notes",
+  Mood: {
+    stackIcon: "ios-happy",
   },
   Photos: {
     stackIcon: "ios-camera",
@@ -82,23 +78,24 @@ const Tab = createBottomTabNavigator();
 
 const wrapComponent = (Component) => {
   return (props) => (
-    <Layout style={styles.container}>
+    <Layout style={{ flex: 1 }}>
       <Component {...props} />
     </Layout>
   );
 };
 
 const getScreenOptions = ({ route }) => {
-  const config = SCREEN_CONFIGURATIONS[route.name];
+  const { stackIcon, options = {} } = SCREEN_CONFIGURATIONS[route.name];
 
   return {
-    ...config.options,
+    ...options,
+    headerStyle: { shadowOpacity: 0, ...options.headerStyle },
     tabBarStyle: styles.tabBar,
     tabBarLabelStyle: styles.tabBarLabel,
-    tabBarIcon: ({ focused, color, size }) => {
+    tabBarIcon: ({ focused, size }) => {
       return (
         <Ionicons
-          name={focused ? config.stackIcon : config.stackIcon + "-outline"}
+          name={focused ? stackIcon : stackIcon + "-outline"}
           size={size}
           color={colors.white}
         />
@@ -107,7 +104,7 @@ const getScreenOptions = ({ route }) => {
   };
 };
 
-const SCREEN_MAPPING = { Profile, Photos, Music, Settings };
+const SCREEN_MAPPING = { Profile, Photos, Mood, Settings };
 
 const App = () => {
   return (
