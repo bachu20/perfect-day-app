@@ -86,7 +86,8 @@ const getScreenOptions = ({ route }) => {
   };
 };
 
-const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
+// const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
+const SCREEN_MAPPING = { Quotes, Profile, Mood, Photos };
 
 const App = () => {
   return (

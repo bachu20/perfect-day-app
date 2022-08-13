@@ -1,8 +1,6 @@
 import { StyleSheet, FlatList, Image } from "react-native";
 import { Layout } from "@ui-kitten/components";
 
-const NUM_COLS = 2;
-
 const sample = new Array(11)
   .fill(1)
   .map((_, i) => `https://picsum.photos/seed/${i + Math.random()}/640/360`);
@@ -21,6 +19,7 @@ const Photos = () => {
         keyExtractor={(item) => item}
         initialNumToRender={3}
         renderItem={renderPhoto}
+        showsVerticalScrollIndicator={false}
       />
     </Layout>
   );
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   photo: {
-    flex: 1 / NUM_COLS,
+    flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
