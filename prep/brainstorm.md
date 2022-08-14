@@ -38,11 +38,11 @@
 
 ### How:
 
-| Choice | API       | Access Level Reqs | Access Level Reqs                                                 |
+| Choice | API       | Access Level Reqs | Documentation                                                     |
 | ------ | --------- | ----------------- | ----------------------------------------------------------------- |
-|        | ZenQuotes | Free Tier         | https://premium.zenquotes.io/zenquotes-documentation/#call-quotes |
-|        | Quotable  | Free Tier         | https://github.com/lukePeavey/quotable                            |
-|        | Go Quotes | Free Tier         | https://goquotes.docs.apiary.io/#                                 |
+| N      | ZenQuotes | Free Tier         | https://premium.zenquotes.io/zenquotes-documentation/#call-quotes |
+| Y      | Quotable  | Free Tier         | https://github.com/lukePeavey/quotable                            |
+| N      | Go Quotes | Free Tier         | https://goquotes.docs.apiary.io/#                                 |
 
 ## Picture Recommendations
 
@@ -54,7 +54,7 @@
 
 ### How:
 
-| Choice | API      | Access Level Reqs             | Access Level Reqs                         |
+| Choice | API      | Access Level Reqs             | Documentation                             |
 | ------ | -------- | ----------------------------- | ----------------------------------------- |
 | Y      | Pexels   | Free Tier                     | https://www.pexels.com/api/documentation/ |
 | N      | Unsplash | Free Tier (registration req.) | https://unsplash.com/documentation        |
@@ -70,6 +70,6 @@
 
 ### How:
 
-| Choice | API     | Access Level Reqs | Access Level Reqs                             |
+| Choice | API     | Access Level Reqs | Documentation                                 |
 | ------ | ------- | ----------------- | --------------------------------------------- |
 | Y      | YouTube | Free Tier         | https://developers.google.com/youtube/v3/docs |
