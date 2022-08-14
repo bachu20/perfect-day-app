@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import * as eva from "@eva-design/eva";
-import colors from "./src/utils/colors";
+import { colors, spacing } from "./src/utils/styles";
 
 import Profile from "./src/screens/Profile";
 import Photos from "./src/screens/Photos";
@@ -13,8 +13,8 @@ import Mood from "./src/screens/Mood";
 import Quotes from "./src/screens/Quotes";
 
 const styles = StyleSheet.create({
-  headerRightIcon: { color: colors.white, marginRight: 30 },
-  headerLeftIcon: { color: colors.white, marginLeft: 30 },
+  headerRightIcon: { color: colors.white, marginRight: spacing.get(6) },
+  headerLeftIcon: { color: colors.white, marginLeft: spacing.get(6) },
   profileHeader: { backgroundColor: colors.black },
   profileHeaderTitle: { color: colors.white },
   tabBar: { backgroundColor: colors.black, shadowOpacity: 0 },

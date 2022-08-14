@@ -1,6 +1,8 @@
 import { StyleSheet, FlatList, Image } from "react-native";
 import { Layout } from "@ui-kitten/components";
 
+import { spacing } from "../utils/styles";
+
 const sample = new Array(11)
   .fill(1)
   .map((_, i) => `https://picsum.photos/seed/${i + Math.random()}/640/360`);
@@ -13,7 +15,7 @@ const renderPhoto = ({ item: uri }) => (
 
 const Photos = () => {
   return (
-    <Layout style={styles.photos}>
+    <Layout style={styles.container}>
       <FlatList
         data={sample}
         keyExtractor={(item) => item}
@@ -26,13 +28,13 @@ const Photos = () => {
 };
 
 const styles = StyleSheet.create({
-  photos: {
-    paddingVertical: 10,
+  container: {
+    flex: 1,
+    paddingHorizontal: spacing.get(6),
+    paddingVertical: spacing.get(3),
   },
   photo: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    marginTop: spacing.get(3),
   },
   image: {
     aspectRatio: 1,

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { Layout, Text, Button } from "@ui-kitten/components";
 import { useAssets } from "expo-asset";
 
-import colors from "../utils/colors";
+import { colors, spacing } from "../utils/styles";
 
 import MenuCard from "../components/MenuCard";
 
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: colors.black,
-    paddingHorizontal: 25,
+    paddingHorizontal: spacing.get(5),
   },
   headerText: {
     alignSelf: "center",
@@ -56,14 +56,14 @@ const styles = StyleSheet.create({
   },
   headerQuote: {
     textAlign: "center",
-    marginTop: 10,
+    marginTop: spacing.get(2),
     color: colors.white,
   },
   moodBtn: {
     backgroundColor: colors.white,
     maxWidth: 175,
     alignSelf: "center",
-    marginTop: 25,
+    marginTop: spacing.get(5),
   },
   body: {
     flex: 2,

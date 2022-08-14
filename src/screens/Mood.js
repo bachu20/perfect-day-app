@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Layout, Text } from "@ui-kitten/components";
 
-import colors from "../utils/colors";
+import { colors, spacing } from "../utils/styles";
 
 const moods = {
   happy: "#FFFF00",
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.black,
     justifyContent: "center",
     alignSelf: "center",
-    marginVertical: 10,
+    marginVertical: spacing.get(2),
     borderRadius: 105 / 2,
     height: 105,
     width: 105,

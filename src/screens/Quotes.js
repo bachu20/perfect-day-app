@@ -2,7 +2,7 @@ import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import { Layout, Text } from "@ui-kitten/components";
 import { Ionicons } from "@expo/vector-icons";
 
-import colors from "../utils/colors";
+import { colors, spacing } from "../utils/styles";
 
 const quotes = new Array(3).fill(
   "The Maldives, officially the Republic of Maldives, is a small country in..."
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.grey,
-    paddingHorizontal: 30,
-    paddingTop: 15,
+    paddingHorizontal: spacing.get(6),
+    paddingTop: spacing.get(3),
   },
   card: {
-    marginTop: 15,
+    marginTop: spacing.get(3),
+    padding: spacing.get(5),
     height: 200,
-    padding: 25,
     backgroundColor: colors.white,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
