@@ -40,20 +40,15 @@ const Quotes = () => {
   );
 };
 
-const addBorder = {
-  borderWidth: 1,
-  borderColor: "black",
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.grey,
-    paddingHorizontal: spacing.get(6),
+    paddingHorizontal: spacing.get(3),
     paddingTop: spacing.get(3),
   },
   card: {
-    marginTop: spacing.get(3),
+    marginBottom: spacing.get(3),
     padding: spacing.get(5),
     height: 200,
     backgroundColor: colors.white,

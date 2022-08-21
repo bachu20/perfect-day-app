@@ -6,6 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import * as eva from "@eva-design/eva";
 import { colors, spacing } from "./src/utils/styles";
+import { store } from "./src/store";
+import { Provider } from "react-redux";
 
 import Profile from "./src/screens/Profile";
 import Photos from "./src/screens/Photos";
@@ -107,6 +109,8 @@ const App = () => {
 
 export default () => (
   <ApplicationProvider {...eva} theme={eva.light}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ApplicationProvider>
 );
