@@ -4,6 +4,8 @@ import { Layout, Text } from "@ui-kitten/components";
 
 import { colors, spacing } from "../utils/styles";
 
+import { useGetUserQuery } from "../services/users";
+
 const moods = {
   happy: "#FFFF00",
   fierce: "#FF4433",
@@ -38,6 +40,9 @@ const MoodItem = ({ mood, active, onPress }) => {
 
 const Mood = () => {
   const [activeMood, setActiveMood] = useState();
+  const { data } = useGetUserQuery();
+
+  console.log("data:", data);
 
   return (
     <Layout style={{ flex: 1 }}>

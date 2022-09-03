@@ -3,9 +3,15 @@ import { ApplicationProvider, Layout } from "@ui-kitten/components";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import * as eva from "@eva-design/eva";
 import { colors, spacing } from "./src/utils/styles";
+import { store } from "./src/store";
+import { Provider } from "react-redux";
+
+import userApi from "./src/services/users";
 
 import Profile from "./src/screens/Profile";
 import Photos from "./src/screens/Photos";
@@ -86,10 +92,15 @@ const getScreenOptions = ({ route }) => {
   };
 };
 
-// const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
-const SCREEN_MAPPING = { Quotes, Profile, Mood, Photos };
+const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userApi.util.prefetch("getUser", undefined, { force: true }));
+  }, []);
+
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={(props) => getScreenOptions(props)}>
@@ -107,6 +118,8 @@ const App = () => {
 
 export default () => (
   <ApplicationProvider {...eva} theme={eva.light}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ApplicationProvider>
 );

@@ -30,8 +30,8 @@ const Photos = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: spacing.get(6),
-    paddingVertical: spacing.get(3),
+    paddingHorizontal: spacing.get(3),
+    paddingBottom: spacing.get(3),
   },
   photo: {
     marginTop: spacing.get(3),
