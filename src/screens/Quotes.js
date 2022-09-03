@@ -4,32 +4,44 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { colors, spacing } from "../utils/styles";
 
-const quotes = new Array(3).fill(
-  "The Maldives, officially the Republic of Maldives, is a small country in..."
-);
+import quotesApi from "../services/quotes";
+import userApi from "../services/users";
+
+import MOODS_CONFIG from "../utils/moods";
 
 const renderQuote = ({ item }) => (
   <Layout style={styles.card}>
     <Text style={styles.quote} category="s1">
-      {item}
+      {item.content}
     </Text>
 
     <Layout style={styles.quoteAuthor}>
-      <Text category="s2">~ John Doe</Text>
+      <Text category="s2">~ {item.author}</Text>
     </Layout>
   </Layout>
 );
 
 const Quotes = () => {
+  const { data: user } = userApi.endpoints.getUser.useQueryState();
+  console.log("user.mood:", user?.mood);
+
+  const tags = MOODS_CONFIG.tags[user?.mood.toLowerCase()] ?? [];
+
+  const { data: quotes } = quotesApi.endpoints.getQuotes.useQuery(
+    `sortBy=dateModified&tags=${tags.join("|")}`
+  );
+
   return (
     <Layout style={styles.container}>
-      <FlatList
-        data={quotes}
-        keyExtractor={(_, index) => index}
-        initialNumToRender={3}
-        renderItem={renderQuote}
-        showsVerticalScrollIndicator={false}
-      />
+      {quotes?.length && (
+        <FlatList
+          data={quotes}
+          keyExtractor={(item) => item._id}
+          initialNumToRender={3}
+          renderItem={renderQuote}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
 
       <Layout style={styles.controls}>
         <TouchableOpacity>

@@ -1,25 +1,16 @@
-import { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Layout, Text } from "@ui-kitten/components";
 
 import { colors, spacing } from "../utils/styles";
+import userApi, { usePatchUserMutation } from "../services/users";
 
-import { useGetUserQuery } from "../services/users";
-
-const moods = {
-  happy: "#FFFF00",
-  fierce: "#FF4433",
-  energetic: "#FFA500",
-  serene: "#00FFFF",
-  mystical: "#CF9FFF",
-  gloomy: "#D3D3D3",
-};
+import MOODS_CONFIG from "../utils/moods";
 
 const MoodItem = ({ mood, active, onPress }) => {
   const textStyles = { ...styles.moodTitle };
 
   if (active) {
-    textStyles.color = moods[mood];
+    textStyles.color = MOODS_CONFIG.colors[mood];
   }
 
   return (
@@ -39,19 +30,17 @@ const MoodItem = ({ mood, active, onPress }) => {
 };
 
 const Mood = () => {
-  const [activeMood, setActiveMood] = useState();
-  const { data } = useGetUserQuery();
-
-  console.log("data:", data);
+  const { data } = userApi.endpoints.getUser.useQueryState();
+  const [updateUser] = usePatchUserMutation();
 
   return (
     <Layout style={{ flex: 1 }}>
-      {Object.keys(moods).map((mood) => (
+      {MOODS_CONFIG.moods.map((mood) => (
         <MoodItem
           key={mood}
           mood={mood}
-          active={mood === activeMood}
-          onPress={(m) => setActiveMood(m)}
+          active={mood === data?.mood?.toLowerCase()}
+          onPress={(m) => updateUser({ mood: m.toUpperCase() })}
         />
       ))}
     </Layout>

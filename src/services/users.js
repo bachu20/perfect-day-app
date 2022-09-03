@@ -1,57 +1,30 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import axios from "axios";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
-const axiosBaseQuery =
-  ({ baseUrl } = { baseUrl: "" }) =>
-  async (request, api) => {
-    const {
-      url = request,
-      method = "GET",
-      data,
-      params,
-    } = typeof request === "object" ? request : {};
+import { baseQuery } from "./common";
 
-    const headers = { "Content-Type": "application/json" };
-
-    try {
-      const result = await axios({
-        url: baseUrl + url,
-        method,
-        data,
-        params,
-        headers,
-      });
-
-      return { data: result.data };
-    } catch (error) {
-      console.log("error:", error);
-
-      const isAuthError =
-        error.response.status === 401 &&
-        error.response.data.code === "Unauthorized";
-
-      isAuthError && api.dispatch(setToken(null));
-
-      return {
-        error: {
-          status: error.response?.status,
-          data: error.response?.data || error.message,
-        },
-      };
-    }
-  };
+const transformResponse = (response) => response.data;
 
 export const userApi = createApi({
   reducerPath: "user",
-  baseQuery: axiosBaseQuery({ baseUrl: "http://BACHU-600.local:3000/api/v1" }),
   tagTypes: ["User"],
+  baseQuery: baseQuery({ baseUrl: "http://BACHU-600.local:3000/api/v1" }),
   endpoints: (builder) => ({
     getUser: builder.query({
       query: () => `/users/62f96badc7bdebcf17b3de2e`,
       providesTags: ["User"],
+      transformResponse,
+    }),
+    patchUser: builder.mutation({
+      query: (data) => ({
+        url: `/users/62f96badc7bdebcf17b3de2e`,
+        method: "PATCH",
+        data: { data },
+      }),
+      invalidatesTags: ["User"],
+      transformResponse,
     }),
   }),
 });
 
-export const { useGetUserQuery } = userApi;
+export const { useGetUserQuery, usePatchUserMutation } = userApi;
 export default userApi;
