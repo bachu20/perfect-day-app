@@ -4,7 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 import * as eva from "@eva-design/eva";
 import { colors, spacing } from "./src/utils/styles";
@@ -93,13 +92,12 @@ const getScreenOptions = ({ route }) => {
 };
 
 const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
-// const SCREEN_MAPPING = { Quotes, Profile, Mood, Photos };
 
 const App = () => {
-  const dispatch = useDispatch();
+  const prefectUser = userApi.usePrefetch("getUser");
 
   useEffect(() => {
-    dispatch(userApi.util.prefetch("getUser", undefined, { force: true }));
+    prefectUser(undefined, { force: true });
   }, []);
 
   return (

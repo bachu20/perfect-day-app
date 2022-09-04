@@ -23,7 +23,6 @@ const renderQuote = ({ item }) => (
 
 const Quotes = () => {
   const { data: user } = userApi.endpoints.getUser.useQueryState();
-  console.log("user.mood:", user?.mood);
 
   const tags = MOODS_CONFIG.tags[user?.mood.toLowerCase()] ?? [];
 
