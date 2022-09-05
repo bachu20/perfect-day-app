@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { Layout, Text } from "@ui-kitten/components";
 
 import { colors, spacing } from "../utils/styles";
-import userApi, { usePatchUserMutation } from "../services/users";
+import api, { usePatchUserMutation } from "../services/api";
 
 import MOODS_CONFIG from "../utils/moods";
 
@@ -10,7 +10,7 @@ const MoodItem = ({ mood, active, onPress }) => {
   const textStyles = { ...styles.moodTitle };
 
   if (active) {
-    textStyles.color = MOODS_CONFIG.colors[mood];
+    textStyles.color = MOODS_CONFIG.COLORS[mood];
   }
 
   return (
@@ -30,12 +30,12 @@ const MoodItem = ({ mood, active, onPress }) => {
 };
 
 const Mood = () => {
-  const { data } = userApi.endpoints.getUser.useQueryState();
+  const { data } = api.endpoints.getUser.useQueryState();
   const [updateUser] = usePatchUserMutation();
 
   return (
     <Layout style={{ flex: 1 }}>
-      {MOODS_CONFIG.moods.map((mood) => (
+      {MOODS_CONFIG.MOODS.map((mood) => (
         <MoodItem
           key={mood}
           mood={mood}

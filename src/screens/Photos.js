@@ -1,24 +1,27 @@
 import { StyleSheet, FlatList, Image } from "react-native";
-import { Layout } from "@ui-kitten/components";
+import { Layout, Text } from "@ui-kitten/components";
 
 import { spacing } from "../utils/styles";
 
-const sample = new Array(11)
-  .fill(1)
-  .map((_, i) => `https://picsum.photos/seed/${i + Math.random()}/640/360`);
+import api, { useGetPhotosQuery } from "../services/api";
 
-const renderPhoto = ({ item: uri }) => (
+const renderPhoto = ({ item }) => (
   <Layout style={styles.photo}>
-    <Image source={{ uri }} style={styles.image} />
+    <Image source={{ uri: item.src.original }} style={styles.image} />
   </Layout>
 );
 
 const Photos = () => {
-  return (
+  const { data: userData } = api.endpoints.getUser.useQueryState();
+  const { data: photosData, isLoading } = useGetPhotosQuery(userData.mood);
+
+  return isLoading ? (
+    <Text>Loading</Text>
+  ) : (
     <Layout style={styles.container}>
       <FlatList
-        data={sample}
-        keyExtractor={(item) => item}
+        data={photosData.photos}
+        keyExtractor={(item) => item.id}
         initialNumToRender={3}
         renderItem={renderPhoto}
         showsVerticalScrollIndicator={false}

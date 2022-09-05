@@ -10,8 +10,9 @@ import { colors, spacing } from "./src/utils/styles";
 import { store } from "./src/store";
 import { Provider } from "react-redux";
 
-import userApi from "./src/services/users";
+import { useGetUserQuery } from "./src/services/api";
 
+import Login from "./src/screens/Login";
 import Profile from "./src/screens/Profile";
 import Photos from "./src/screens/Photos";
 import Mood from "./src/screens/Mood";
@@ -50,24 +51,15 @@ const wrapComponent = (Component) => {
 };
 
 const getScreenOptions = ({ route }) => {
-  const { stackIcon, options = {} } = SCREEN_CONFIGURATIONS[route.name];
+  const { stackIcon, options = {} } = SCREEN_CONFIGURATIONS[route.name] ?? {};
   const headerIconColor =
     route.name === "Profile" ? colors.white : colors.black;
 
-  return {
+  const out = {
     ...options,
     headerStyle: { shadowOpacity: 0, ...options.headerStyle },
     tabBarStyle: styles.tabBar,
     tabBarLabelStyle: styles.tabBarLabel,
-    tabBarIcon: ({ focused, size }) => {
-      return (
-        <Ionicons
-          name={focused ? stackIcon : stackIcon + "-outline"}
-          size={size}
-          color={colors.white}
-        />
-      );
-    },
     headerLeft: (props) => {
       return (
         <Ionicons
@@ -89,27 +81,46 @@ const getScreenOptions = ({ route }) => {
       );
     },
   };
+
+  if (stackIcon) {
+    out.tabBarIcon = ({ focused, size }) => {
+      return (
+        <Ionicons
+          name={focused ? stackIcon : stackIcon + "-outline"}
+          size={size}
+          color={colors.white}
+        />
+      );
+    };
+  }
+
+  return out;
 };
 
-const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
+// const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
+const SCREEN_MAPPING = { Photos, Profile, Mood, Quotes };
 
 const App = () => {
-  const prefectUser = userApi.usePrefetch("getUser");
-
-  useEffect(() => {
-    prefectUser(undefined, { force: true });
-  }, []);
+  const { isLoading } = useGetUserQuery();
 
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={(props) => getScreenOptions(props)}>
-        {Object.keys(SCREEN_MAPPING).map((name) => (
+        {isLoading ? (
           <Tab.Screen
-            key={name}
-            name={name}
-            component={wrapComponent(SCREEN_MAPPING[name])}
+            key="Login"
+            name="Login"
+            component={wrapComponent(Login)}
           />
-        ))}
+        ) : (
+          Object.keys(SCREEN_MAPPING).map((name) => (
+            <Tab.Screen
+              key={name}
+              name={name}
+              component={wrapComponent(SCREEN_MAPPING[name])}
+            />
+          ))
+        )}
       </Tab.Navigator>
     </NavigationContainer>
   );
