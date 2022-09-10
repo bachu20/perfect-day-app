@@ -4,8 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { colors, spacing } from "../utils/styles";
 
-import quotesApi from "../services/quotes";
-import userApi from "../services/users";
+import api, { useGetQuotesQuery } from "../services/api";
 
 import MOODS_CONFIG from "../utils/moods";
 
@@ -22,26 +21,25 @@ const renderQuote = ({ item }) => (
 );
 
 const Quotes = () => {
-  const { data: user } = userApi.endpoints.getUser.useQueryState();
-  console.log("user.mood:", user?.mood);
+  const { data: userData } = api.endpoints.getUser.useQueryState();
 
-  const tags = MOODS_CONFIG.tags[user?.mood.toLowerCase()] ?? [];
+  const tags = MOODS_CONFIG.TAGS[userData.mood.toLowerCase()] ?? [];
 
-  const { data: quotes } = quotesApi.endpoints.getQuotes.useQuery(
+  const { data: quotesData, isLoading } = useGetQuotesQuery(
     `sortBy=dateModified&tags=${tags.join("|")}`
   );
 
-  return (
+  return isLoading ? (
+    <Text>Loading</Text>
+  ) : (
     <Layout style={styles.container}>
-      {quotes?.length && (
-        <FlatList
-          data={quotes}
-          keyExtractor={(item) => item._id}
-          initialNumToRender={3}
-          renderItem={renderQuote}
-          showsVerticalScrollIndicator={false}
-        />
-      )}
+      <FlatList
+        data={quotesData}
+        keyExtractor={(item) => item._id}
+        initialNumToRender={3}
+        renderItem={renderQuote}
+        showsVerticalScrollIndicator={false}
+      />
 
       <Layout style={styles.controls}>
         <TouchableOpacity>

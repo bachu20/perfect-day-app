@@ -11,8 +11,10 @@ module.exports = (options = {}) => {
         code = err.code || inferredCode || "Unknown";
     }
 
+    const errMsg = err.message || err.text;
+
     return res
       .status(err.status || 500)
-      .json({ code, message: err.message, raw: err });
+      .json({ code, message: errMsg, raw: err });
   };
 };

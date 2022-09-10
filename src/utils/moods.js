@@ -1,5 +1,5 @@
 const MOODS_CONFIG = {
-  colors: {
+  COLORS: {
     happy: "#FFFF00",
     fierce: "#FF4433",
     energetic: "#FFA500",
@@ -7,7 +7,7 @@ const MOODS_CONFIG = {
     mystical: "#CF9FFF",
     gloomy: "#D3D3D3",
   },
-  tags: {
+  TAGS: {
     happy: ["success", "happiness", "inspirational", "humor", "family", "love"],
     fierce: ["war", "power-quotes", "history", "leadership"],
     energetic: ["athletics", "competition", "courage"],
@@ -24,6 +24,6 @@ const MOODS_CONFIG = {
   },
 };
 
-MOODS_CONFIG.moods = Object.keys(MOODS_CONFIG.colors);
+MOODS_CONFIG.MOODS = Object.keys(MOODS_CONFIG.COLORS);
 
 export default MOODS_CONFIG;
