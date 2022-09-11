@@ -40,7 +40,6 @@ export const api = createApi({
     getPhotos: builder.query({
       query: (mood) => {
         const query = `/photos?orientation=square&query=${mood.toLowerCase()}`;
-        console.log("query: ", query);
         return query;
       },
       providesTags: ["Photos"],

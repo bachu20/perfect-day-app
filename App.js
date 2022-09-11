@@ -3,10 +3,11 @@ import { ApplicationProvider, Layout } from "@ui-kitten/components";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect } from "react";
-
 import * as eva from "@eva-design/eva";
+
 import { colors, spacing } from "./src/utils/styles";
+import MOODS_CONFIG from "./src/utils/moods";
+
 import { store } from "./src/store";
 import { Provider } from "react-redux";
 
@@ -50,10 +51,13 @@ const wrapComponent = (Component) => {
   );
 };
 
-const getScreenOptions = ({ route }) => {
+const getScreenOptions = ({ props: { route }, mood }) => {
   const { stackIcon, options = {} } = SCREEN_CONFIGURATIONS[route.name] ?? {};
+
   const headerIconColor =
     route.name === "Profile" ? colors.white : colors.black;
+
+  const moodIcon = MOODS_CONFIG[mood]?.icon;
 
   const out = {
     ...options,
@@ -75,7 +79,7 @@ const getScreenOptions = ({ route }) => {
         <Ionicons
           {...props}
           style={{ color: headerIconColor, marginHorizontal: 25 }}
-          name="ios-happy-outline"
+          name={(moodIcon || "ios-happy") + "-outline"}
           size={24}
         />
       );
@@ -97,15 +101,16 @@ const getScreenOptions = ({ route }) => {
   return out;
 };
 
-// const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
-const SCREEN_MAPPING = { Photos, Profile, Mood, Quotes };
+const SCREEN_MAPPING = { Profile, Mood, Photos, Quotes };
 
 const App = () => {
-  const { isLoading } = useGetUserQuery();
+  const { data, isLoading } = useGetUserQuery();
 
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={(props) => getScreenOptions(props)}>
+      <Tab.Navigator
+        screenOptions={(props) => getScreenOptions({ props, mood: data?.mood })}
+      >
         {isLoading ? (
           <Tab.Screen
             key="Login"

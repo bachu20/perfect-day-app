@@ -23,7 +23,7 @@ const renderQuote = ({ item }) => (
 const Quotes = () => {
   const { data: userData } = api.endpoints.getUser.useQueryState();
 
-  const tags = MOODS_CONFIG.TAGS[userData.mood.toLowerCase()] ?? [];
+  const tags = MOODS_CONFIG[userData.mood].tags ?? [];
 
   const { data: quotesData, isLoading } = useGetQuotesQuery(
     `sortBy=dateModified&tags=${tags.join("|")}`

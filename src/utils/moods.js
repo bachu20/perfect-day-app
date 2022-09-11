@@ -1,18 +1,25 @@
 const MOODS_CONFIG = {
-  COLORS: {
-    happy: "#FFFF00",
-    fierce: "#FF4433",
-    energetic: "#FFA500",
-    serene: "#00FFFF",
-    mystical: "#CF9FFF",
-    gloomy: "#D3D3D3",
+  HAPPY: {
+    color: "#FFFF00",
+    icon: "ios-happy",
+    tags: ["success", "happiness", "inspirational", "humor", "family", "love"],
   },
-  TAGS: {
-    happy: ["success", "happiness", "inspirational", "humor", "family", "love"],
-    fierce: ["war", "power-quotes", "history", "leadership"],
-    energetic: ["athletics", "competition", "courage"],
-    serene: ["wisdom", "virtue", "truth", "nature"],
-    mystical: [
+  FIERCE: {
+    color: "#FF4433",
+    tags: ["war", "power-quotes", "history", "leadership"],
+  },
+  ENERGETIC: {
+    color: "#FFA500",
+    icon: "ios-flash",
+    tags: ["athletics", "competition", "courage"],
+  },
+  SERENE: {
+    color: "#00FFFF",
+    tags: ["wisdom", "virtue", "truth", "nature"],
+  },
+  MYSTICAL: {
+    color: "#CF9FFF",
+    tags: [
       "spirituality",
       "truth",
       "religion",
@@ -20,10 +27,14 @@ const MOODS_CONFIG = {
       "philosophy",
       "faith",
     ],
-    gloomy: ["pain", "self", "self-help"],
+  },
+  GLOOMY: {
+    color: "#D3D3D3",
+    icon: "ios-sad",
+    tags: ["pain", "self", "self-help"],
   },
 };
 
-MOODS_CONFIG.MOODS = Object.keys(MOODS_CONFIG.COLORS);
+MOODS_CONFIG.MOODS = Object.keys(MOODS_CONFIG);
 
 export default MOODS_CONFIG;
