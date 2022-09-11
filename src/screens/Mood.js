@@ -10,7 +10,7 @@ const MoodItem = ({ mood, active, onPress }) => {
   const textStyles = { ...styles.moodTitle };
 
   if (active) {
-    textStyles.color = MOODS_CONFIG.COLORS[mood];
+    textStyles.color = MOODS_CONFIG[mood].color;
   }
 
   return (
@@ -22,7 +22,7 @@ const MoodItem = ({ mood, active, onPress }) => {
     >
       <TouchableOpacity style={styles.moodItem} onPress={() => onPress(mood)}>
         <Text style={{ ...textStyles }} category="h6">
-          {mood}
+          {mood.toLowerCase()}
         </Text>
       </TouchableOpacity>
     </Layout>
@@ -39,8 +39,8 @@ const Mood = () => {
         <MoodItem
           key={mood}
           mood={mood}
-          active={mood === data?.mood?.toLowerCase()}
-          onPress={(m) => updateUser({ mood: m.toUpperCase() })}
+          active={mood === data.mood}
+          onPress={(m) => updateUser({ mood: m })}
         />
       ))}
     </Layout>
