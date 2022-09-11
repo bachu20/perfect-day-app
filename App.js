@@ -1,3 +1,5 @@
+import "expo-dev-client";
+
 import { StyleSheet } from "react-native";
 import { ApplicationProvider, Layout } from "@ui-kitten/components";
 import { NavigationContainer } from "@react-navigation/native";
